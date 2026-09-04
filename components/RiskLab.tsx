@@ -1,210 +1,212 @@
 "use client";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
-const DOTS_COLS = 18;
-const DOTS_ROWS = 10;
-
-function DotGrid() {
-  const containerRef = useRef<HTMLDivElement>(null);
+export default function RiskLab() {
+  const ref = useRef<HTMLDivElement>(null);
+  const imgRef = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
-
-    const dots = container.querySelectorAll<HTMLDivElement>(".dot");
-
-    const onMouseMove = (e: MouseEvent) => {
-      const rect = container.getBoundingClientRect();
-      const mx = e.clientX - rect.left;
-      const my = e.clientY - rect.top;
-
-      dots.forEach((dot) => {
-        const drect = dot.getBoundingClientRect();
-        const dx = drect.left + drect.width / 2 - rect.left - mx;
-        const dy = drect.top + drect.height / 2 - rect.top - my;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        const maxDist = 100;
-        const scale = dist < maxDist ? 1 + (1 - dist / maxDist) * 1.2 : 1;
-        dot.style.transform = `scale(${scale})`;
-        dot.style.opacity = dist < maxDist ? `${0.25 + (1 - dist / maxDist) * 0.75}` : "0.25";
-      });
-    };
-
-    const onMouseLeave = () => {
-      dots.forEach((dot) => {
-        dot.style.transform = "scale(1)";
-        dot.style.opacity = "0.25";
-      });
-    };
-
-    container.addEventListener("mousemove", onMouseMove);
-    container.addEventListener("mouseleave", onMouseLeave);
-    return () => {
-      container.removeEventListener("mousemove", onMouseMove);
-      container.removeEventListener("mouseleave", onMouseLeave);
-    };
+    const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) { setVisible(true); obs.disconnect(); } }, { threshold: 0.2 });
+    if (ref.current) obs.observe(ref.current);
+    return () => obs.disconnect();
   }, []);
 
   return (
-    <div
-      ref={containerRef}
-      style={{
-        display: "grid",
-        gridTemplateColumns: `repeat(${DOTS_COLS}, 1fr)`,
-        gap: "10px",
-        padding: "1rem",
-      }}
+    <section
+      id="lab"
+      ref={ref}
+      style={{ background: "#050505", borderTop: "1px solid rgba(255,255,255,0.06)", padding: "8rem 0" }}
     >
-      {Array.from({ length: DOTS_COLS * DOTS_ROWS }).map((_, i) => (
-        <div
-          key={i}
-          className="dot"
-          style={{
-            width: "4px",
-            height: "4px",
-            borderRadius: "50%",
-            background: "#050505",
-            opacity: 0.25,
-            transition: "transform 150ms ease, opacity 150ms ease",
-          }}
-        />
-      ))}
-    </div>
-  );
-}
-
-const ARTICLES = [
-  {
-    category: "Research",
-    title: "REAL-TIME\nFRAUD DEFENSE\nFOR MODERN\nPAYMENTS",
-    time: "12 hours ago",
-    author: "Risk Ops",
-  },
-  {
-    category: "Engineering",
-    title: "HOW HYBRID\nML+RULES\nOUTPERFORM\nBLACK-BOX AI",
-    time: "2 days ago",
-    author: "ML Team",
-  },
-];
-
-export default function RiskLab() {
-  const currentIdx = 0;
-  const article = ARTICLES[currentIdx];
-
-  return (
-    <section style={{ background: "#f7f7f2", padding: "7rem 0", overflow: "hidden" }}>
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 2fr", minHeight: "520px" }}>
-        {/* Left — "OUR RISK LAB" with dot grid */}
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "1fr 1.2fr",
+          minHeight: 560,
+          alignItems: "stretch",
+        }}
+      >
+        {/* Left: Text panel */}
         <div
           style={{
-            padding: "3rem 2.5rem",
-            borderRight: "1px solid rgba(0,0,0,0.1)",
+            padding: "4rem 2.5rem 4rem 2.5rem",
             display: "flex",
             flexDirection: "column",
             justifyContent: "space-between",
+            borderRight: "1px solid rgba(255,255,255,0.06)",
           }}
         >
+          {/* Section number */}
+          <div style={{ fontSize: "0.5rem", color: "#444", letterSpacing: "0.12em" }}>06 / RESEARCH</div>
+
+          {/* Giant stacked heading */}
           <div>
-            <div className="label" style={{ color: "#a1a1a1", marginBottom: "1.5rem" }}>
-              Knowledge Base
-            </div>
-            {["OUR", "RISK", "LAB"].map((word, i) => (
+            {["RISK", "LAB"].map((word, i) => (
               <div
-                key={i}
+                key={word}
                 style={{
-                  fontSize: "clamp(3rem, 6vw, 5.5rem)",
-                  fontWeight: 900,
-                  textTransform: "uppercase",
-                  letterSpacing: "-0.04em",
-                  lineHeight: 0.95,
-                  color: "#050505",
+                  fontSize: "clamp(5rem, 12vw, 9rem)",
+                  fontWeight: 700,
+                  letterSpacing: "-0.06em",
+                  lineHeight: 0.85,
+                  color: i === 1 ? "#39FF88" : "#F4F4F0",
+                  opacity: visible ? 1 : 0,
+                  transform: visible ? "none" : "translateY(24px)",
+                  transition: `opacity 700ms ease ${i * 90}ms, transform 700ms ease ${i * 90}ms`,
                 }}
               >
                 {word}
               </div>
             ))}
+
+            {/* Tagline */}
+            <div
+              style={{
+                fontSize: "0.8125rem",
+                color: "#555",
+                lineHeight: 1.6,
+                marginTop: "1.5rem",
+                maxWidth: 340,
+                opacity: visible ? 1 : 0,
+                transition: "opacity 700ms ease 250ms",
+              }}
+            >
+              Experiment. Evaluate. Deploy.
+            </div>
+            <div
+              style={{
+                fontSize: "0.8125rem",
+                color: "#444",
+                lineHeight: 1.6,
+                maxWidth: 340,
+                marginTop: "0.5rem",
+                opacity: visible ? 1 : 0,
+                transition: "opacity 700ms ease 320ms",
+              }}
+            >
+              Research, evaluation and model iteration for real-time fraud, account takeover and chargeback risk.
+            </div>
           </div>
-          <DotGrid />
+
+          {/* Version badges */}
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "0.5rem",
+              opacity: visible ? 1 : 0,
+              transition: "opacity 700ms ease 450ms",
+            }}
+          >
+            {[
+              { label: "Model v23", color: "#39FF88" },
+              { label: "Rules v41", color: "#00F6FF" },
+              { label: "Feature set 8.2", color: "#FFA31A" },
+            ].map(({ label, color }) => (
+              <div
+                key={label}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "0.625rem",
+                  fontSize: "0.625rem",
+                  fontWeight: 600,
+                  letterSpacing: "0.1em",
+                  textTransform: "uppercase",
+                  color,
+                }}
+              >
+                <span style={{ width: 4, height: 4, borderRadius: "50%", background: color, display: "block", flexShrink: 0 }} />
+                {label}
+              </div>
+            ))}
+          </div>
         </div>
 
-        {/* Right — article panel */}
+        {/* Right: Large image / visual with slow zoom */}
         <div
+          ref={imgRef}
           style={{
-            padding: "3rem 3rem",
-            background: "#050505",
-            color: "#f7f7f2",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "space-between",
             position: "relative",
+            overflow: "hidden",
+            background: "#080808",
+            opacity: visible ? 1 : 0,
+            transition: "opacity 900ms ease 100ms",
           }}
         >
-          {/* Category */}
-          <div style={{
-            display: "inline-block",
-            background: "#0ed39a",
-            color: "#050505",
-            padding: "0.3rem 0.9rem",
-            borderRadius: "9999px",
-            fontSize: "0.7rem",
-            fontWeight: 700,
-            letterSpacing: "0.08em",
-            textTransform: "uppercase",
-            alignSelf: "flex-start",
-          }}>
-            {article.category}
-          </div>
+          {/* Slow-zoom art block */}
+          <div
+            style={{
+              position: "absolute",
+              inset: 0,
+              transform: visible ? "scale(1.04)" : "scale(1.00)",
+              transition: "transform 2000ms cubic-bezier(0.25, 0.46, 0.45, 0.94) 200ms",
+            }}
+          >
+            {/* SVG editorial research art */}
+            <svg width="100%" height="100%" viewBox="0 0 600 560" preserveAspectRatio="xMidYMid slice">
+              <defs>
+                <pattern id="rg" width="25" height="25" patternUnits="userSpaceOnUse">
+                  <path d="M 25 0 L 0 0 0 25" fill="none" stroke="rgba(57,255,136,0.05)" strokeWidth="0.5" />
+                </pattern>
+                <radialGradient id="cg2" cx="50%" cy="50%" r="70%">
+                  <stop offset="0%" stopColor="#39FF88" stopOpacity="0.06" />
+                  <stop offset="100%" stopColor="#050505" stopOpacity="0" />
+                </radialGradient>
+              </defs>
 
-          {/* Large title */}
-          <div style={{
-            fontSize: "clamp(2rem, 4.5vw, 4rem)",
-            fontWeight: 900,
-            textTransform: "uppercase",
-            letterSpacing: "-0.03em",
-            lineHeight: 1.0,
-            whiteSpace: "pre-line",
-            margin: "2rem 0",
-          }}>
-            {article.title}
-          </div>
+              <rect width="600" height="560" fill="#080808" />
+              <rect width="600" height="560" fill="url(#rg)" />
+              <rect width="600" height="560" fill="url(#cg2)" />
 
-          {/* Bottom row */}
-          <div style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            borderTop: "1px solid rgba(255,255,255,0.1)",
-            paddingTop: "1.25rem",
-          }}>
-            <div style={{ display: "flex", gap: "0.75rem" }}>
-              {["←", "→"].map((arrow, i) => (
-                <button
-                  key={i}
-                  style={{
-                    background: "transparent",
-                    border: "1px solid rgba(255,255,255,0.2)",
-                    color: "#f7f7f2",
-                    borderRadius: "50%",
-                    width: "36px",
-                    height: "36px",
-                    cursor: "pointer",
-                    fontSize: "1rem",
-                    transition: "background 200ms ease",
-                  }}
-                  onMouseEnter={e => (e.currentTarget.style.background = "#0ed39a")}
-                  onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
-                >
-                  {arrow}
-                </button>
+              {/* Model accuracy scatter plot */}
+              {[
+                [80, 120], [160, 90], [240, 140], [320, 80], [400, 110], [480, 70], [540, 90],
+                [100, 200], [200, 180], [300, 160], [400, 175], [500, 155],
+                [120, 300], [220, 280], [340, 260], [450, 270], [520, 255],
+                [80, 400], [180, 380], [280, 370], [380, 360], [480, 375],
+              ].map(([x, y], i) => (
+                <circle key={i} cx={x} cy={y} r={i % 3 === 0 ? 3 : 2}
+                  fill={i % 4 === 0 ? "#39FF88" : i % 4 === 1 ? "#E600FF" : i % 4 === 2 ? "#00F6FF" : "#FFA31A"}
+                  opacity={0.5 + (i % 3) * 0.2}
+                />
               ))}
-            </div>
-            <div style={{ fontSize: "0.7rem", color: "#a1a1a1", letterSpacing: "0.05em" }}>
-              {article.time} · {article.author}
-            </div>
+
+              {/* Trend line */}
+              <path
+                d="M80 400 Q200 340 300 280 Q400 220 480 130 Q520 100 540 80"
+                fill="none"
+                stroke="#39FF88"
+                strokeWidth="1"
+                opacity="0.3"
+                strokeDasharray="4 4"
+              />
+
+              {/* Axes */}
+              <line x1="60" y1="30" x2="60" y2="450" stroke="rgba(255,255,255,0.1)" strokeWidth="0.5" />
+              <line x1="60" y1="450" x2="570" y2="450" stroke="rgba(255,255,255,0.1)" strokeWidth="0.5" />
+
+              {/* Axis labels */}
+              <text x="45" y="240" fontSize="7" fill="#555" letterSpacing="0.08em" textAnchor="middle" transform="rotate(-90,45,240)">PRECISION</text>
+              <text x="315" y="475" fontSize="7" fill="#555" letterSpacing="0.08em" textAnchor="middle">RECALL</text>
+
+              {/* Version tag */}
+              <rect x="460" y="30" width="90" height="20" rx="1" fill="none" stroke="rgba(57,255,136,0.3)" />
+              <text x="505" y="43" fontSize="6.5" fill="#39FF88" textAnchor="middle" letterSpacing="0.08em">MODEL v23</text>
+            </svg>
           </div>
+
+          {/* Overlay gradient */}
+          <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to right, #050505 0%, transparent 20%, transparent 80%, #050505 100%)" }} />
         </div>
       </div>
+
+      <style>{`
+        @media (max-width: 768px) {
+          div[style*="1fr 1.2fr"] { grid-template-columns: 1fr !important; }
+          div[style*="borderRight"] { border-right: none !important; border-bottom: 1px solid rgba(255,255,255,0.06); }
+        }
+      `}</style>
     </section>
   );
 }
