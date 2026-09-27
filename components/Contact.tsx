@@ -48,7 +48,7 @@ export default function Contact() {
             borderRadius: "16px",
             textAlign: "center",
           }}>
-            <div style={{ fontSize: "2rem", marginBottom: "1rem" }}>✓</div>
+            <div style={{ fontSize: "1.25rem", color: "#39FF88", fontWeight: 800, marginBottom: "0.5rem" }}>[ACKNOWLEDGED]</div>
             <div style={{ color: "#0ed39a", fontWeight: 700, fontSize: "1.1rem", letterSpacing: "0.05em" }}>
               MESSAGE SENT
             </div>

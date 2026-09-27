@@ -16,8 +16,8 @@ const DECISION_COLORS: Record<string, string> = {
   ALLOW:  "#39FF88",
   REVIEW: "#FFA31A",
   BLOCK:  "#FF4D4D",
-  "STEP-UP": "#00F6FF",
-  "3DS":  "#00F6FF",
+  "STEP-UP": "#FFA31A",
+  "3DS":  "#FFA31A",
 };
 
 export default function CounterfactualPanel({

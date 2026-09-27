@@ -13,9 +13,9 @@ interface MultiModelScoresProps {
 
 const DEFAULT_SCORES: ModelScore[] = [
   { label: "Fraud",       score: 0,  color: "#FF4D4D", desc: "Card-testing / payment fraud" },
-  { label: "ATO",         score: 0,  color: "#E600FF", desc: "Account takeover" },
+  { label: "ATO",         score: 0,  color: "#FF4D4D", desc: "Account takeover" },
   { label: "Chargeback",  score: 0,  color: "#FFA31A", desc: "Dispute risk" },
-  { label: "Novelty",     score: 0,  color: "#00F6FF", desc: "Behavioral anomaly" },
+  { label: "Novelty",     score: 0,  color: "#FFA31A", desc: "Behavioral anomaly" },
   { label: "Campaign",    score: 0,  color: "#39FF88", desc: "Coordinated attack correlation" },
 ];
 

@@ -1,0 +1,2 @@
+decision_id,transaction_id,timestamp,decision,risk_score,rule_score,ml_prob,triggered_rules,top_features,reason_summary,merchant_category,amount
+5be6c8ee-c46f-406e-aba0-edebf2b631d6,92374a7d-2a6a-43d6-a911-b97f828d41f1,2026-09-04T14:09:36.073327,ALLOW,0.0009,0.0,0.0015,[],"[""account_age_days=37.430"", ""device_age_days=16.056"", ""accounts_on_ip_24h=0.059"", ""txn_count_1h=0.055"", ""velocity_score=0.033""]",Risk score 0.00 is below threshold. No critical signals detected.,e-commerce,50.0

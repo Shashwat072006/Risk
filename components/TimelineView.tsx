@@ -15,7 +15,7 @@ const TYPE_COLORS: Record<string, string> = {
   normal: "rgba(244,244,240,0.3)",
   risk:   "#FFA31A",
   block:  "#FF4D4D",
-  auth:   "#00F6FF",
+  auth:   "#FFA31A",
 };
 
 const DEMO_EVENTS: TimelineEvent[] = [

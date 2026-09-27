@@ -1,7 +1,5 @@
 "use client";
 import { useState } from "react";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
 
 const SCENARIOS = [
   {
@@ -18,7 +16,7 @@ const SCENARIOS = [
     id: "ato",
     label: "Account Takeover",
     desc: "10,000 events · 500 identities · 125 devices",
-    color: "#E600FF",
+    color: "#FF4D4D",
     baseline: { detection: 54, fp: 9, loss: 100 },
     withGraph: { detection: 77, fp: 6, loss: 58 },
     withCampaign: { detection: 88, fp: 3, loss: 38 },
@@ -28,7 +26,7 @@ const SCENARIOS = [
     id: "mule_network",
     label: "Mule Network",
     desc: "5,000 events · 200 accounts · 40 beneficiaries",
-    color: "#00F6FF",
+    color: "#FFA31A",
     baseline: { detection: 41, fp: 15, loss: 100 },
     withGraph: { detection: 73, fp: 8, loss: 52 },
     withCampaign: { detection: 84, fp: 5, loss: 39 },
@@ -68,8 +66,8 @@ const SCENARIOS = [
 
 const LAYERS = [
   { key: "baseline",    label: "Baseline ML",          color: "rgba(244,244,240,0.2)" },
-  { key: "withGraph",   label: "+ Entity Graph",        color: "#00F6FF" },
-  { key: "withCampaign",label: "+ Campaign Detector",   color: "#E600FF" },
+  { key: "withGraph",   label: "+ Entity Graph",        color: "#FFA31A" },
+  { key: "withCampaign",label: "+ Campaign Detector",   color: "#39FF88" },
   { key: "withAdaptive",label: "+ Adaptive Policy",     color: "#39FF88" },
 ];
 
@@ -94,11 +92,11 @@ export default function AttackLabPage() {
   return (
     <main style={{ background: "#050505", minHeight: "100vh" }}>
       <div className="grain-overlay" aria-hidden="true" />
-      <Header />
+      
 
       <section
         style={{
-          paddingTop: "8rem",
+          paddingTop: "2rem",
           paddingBottom: "4rem",
           paddingLeft: "2.5rem",
           paddingRight: "2.5rem",
@@ -106,7 +104,7 @@ export default function AttackLabPage() {
         }}
       >
         <div style={{ maxWidth: 1400, margin: "0 auto" }}>
-          <div style={{ fontSize: "0.5rem", fontWeight: 600, letterSpacing: "0.18em", textTransform: "uppercase", color: "#E600FF", marginBottom: "1rem" }}>
+          <div style={{ fontSize: "0.5rem", fontWeight: 600, letterSpacing: "0.18em", textTransform: "uppercase", color: "#39FF88", marginBottom: "1rem" }}>
             Risk Simulation Lab
           </div>
           <h1 style={{ fontSize: "clamp(2.5rem, 5vw, 4rem)", fontWeight: 800, letterSpacing: "-0.04em", lineHeight: 0.9, color: "#F4F4F0", textTransform: "uppercase", margin: 0 }}>
@@ -269,7 +267,7 @@ export default function AttackLabPage() {
         </div>
       </section>
 
-      <Footer />
+      
     </main>
   );
 }

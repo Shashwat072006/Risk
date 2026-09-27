@@ -137,7 +137,7 @@ export default function Pricing() {
             <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: "0.6rem" }}>
               {plan.features.map((f, j) => (
                 <div key={j} style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
-                  <span style={{ color: "#0ed39a", fontSize: "0.75rem" }}>✓</span>
+                  <span style={{ color: "#0ed39a", fontSize: "0.5rem" }}>--</span>
                   <span style={{
                     fontSize: "0.8rem",
                     color: plan.featured || hover === i ? "#a1a1a1" : "#050505",

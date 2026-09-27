@@ -185,9 +185,9 @@ export default function ProtectSection() {
           }}
         >
           {[
-            { label: "Fraud Types Caught", value: "4+" },
-            { label: "Decision Accuracy", value: "100%" },
-            { label: "Avg Latency", value: "42ms" },
+            { label: "Fraud Scenarios", value: "4 Scenarios" },
+            { label: "Evaluation Set", value: "240 Txns" },
+            { label: "Decision SLA", value: "< 50ms" },
           ].map(({ label, value }) => (
             <div key={label} style={{ display: "flex", flexDirection: "column", gap: "0.25rem" }}>
               <div style={{ fontSize: "1.5rem", fontWeight: 700, letterSpacing: "-0.03em", color: "#F4F4F0" }}>{value}</div>

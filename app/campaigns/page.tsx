@@ -1,115 +1,131 @@
 "use client";
+import React from "react";
 import Link from "next/link";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
 
 const CAMPAIGNS = [
   {
-    id: "#1842",
+    id: "CAMPAIGN #1842",
     type: "Account Takeover",
     severity: "CRITICAL",
     accounts: 17,
     devices: 6,
+    networkClusters: 3,
+    cards: 31,
     beneficiaries: 3,
-    ips: 42,
-    exposure: "INR 18.4L",
+    exposure: "₹18.4L",
     confidence: 94,
-    status: "ACTIVE ATTACK",
+    status: "ACTIVE",
     color: "#FF4D4D",
     description:
       "Coordinated login from 6 devices across 17 accounts. Password changes followed by new beneficiary additions and large transfers. Linked through shared device fingerprint and IP cluster.",
-    countries: ["IN", "NG", "RU"],
+    timeline: [
+      { time: "09:31", event: "First suspicious account" },
+      { time: "09:48", event: "Shared device detected" },
+      { time: "10:02", event: "Beneficiary overlap" },
+      { time: "10:17", event: "Velocity spike" },
+      { time: "10:19", event: "Campaign generated" },
+    ],
     signals: ["New device burst", "Velocity spike", "Geo mismatch", "Shared IP cluster"],
   },
   {
-    id: "#1839",
+    id: "CAMPAIGN #1839",
     type: "Card Testing",
     severity: "HIGH",
     accounts: 31,
     devices: 12,
+    networkClusters: 2,
+    cards: 48,
     beneficiaries: 0,
-    ips: 18,
-    exposure: "INR 2.1L",
+    exposure: "₹2.1L",
     confidence: 87,
-    status: "MONITORING",
+    status: "REVIEW",
     color: "#FFA31A",
     description:
-      "Sequential small-value transactions (INR 0.50 – 9.99) across 31 cards from 12 devices. BIN enumeration pattern detected. High decline-then-success ratio.",
-    countries: ["CN", "PK"],
+      "Sequential small-value transactions (₹50 – ₹199) across 31 cards from 12 devices. BIN enumeration pattern detected. High decline-then-success ratio.",
+    timeline: [
+      { time: "08:14", event: "Rapid micropayment cluster detected" },
+      { time: "08:22", event: "BIN velocity limit triggered" },
+      { time: "08:35", event: "12 coordinated browser fingerprints mapped" },
+      { time: "08:41", event: "Campaign generated" },
+    ],
     signals: ["Low amount burst", "BIN enumeration", "High declines", "VPN cluster"],
   },
   {
-    id: "#1830",
+    id: "CAMPAIGN #1830",
     type: "Mule Network",
     severity: "HIGH",
     accounts: 9,
     devices: 4,
+    networkClusters: 2,
+    cards: 14,
     beneficiaries: 7,
-    ips: 11,
-    exposure: "INR 6.7L",
+    exposure: "₹6.7L",
     confidence: 72,
-    status: "INVESTIGATING",
-    color: "#E600FF",
+    status: "REVIEW",
+    color: "#FFA31A",
     description:
-      "9 accounts receiving funds and rapidly redistributing to 7 beneficiaries within minutes. Graph clustering revealed common fund-flow topology consistent with mule behavior.",
-    countries: ["IN", "AE"],
+      "9 accounts receiving inbound funds and rapidly redistributing to 7 common beneficiaries within minutes. Graph clustering revealed common fund-flow topology consistent with mule pass-through behavior.",
+    timeline: [
+      { time: "06:10", event: "Multiple peer inbound settlements" },
+      { time: "06:14", event: "Immediate rapid outward dissipation (dwell 4m)" },
+      { time: "06:28", event: "Beneficiary convergence across 9 nodes" },
+      { time: "06:33", event: "Campaign generated" },
+    ],
     signals: ["Rapid redistribution", "New beneficiaries", "Graph clustering", "Unusual timing"],
   },
 ];
 
 export default function CampaignsPage() {
   return (
-    <main style={{ background: "#050505", minHeight: "100vh" }}>
+    <main style={{ background: "#070707", minHeight: "100vh", color: "#F5F4EF" }}>
       <div className="grain-overlay" aria-hidden="true" />
-      <Header />
+      
 
       <section
         style={{
-          paddingTop: "8rem",
-          paddingBottom: "4rem",
+          paddingTop: "7.5rem",
+          paddingBottom: "3rem",
           paddingLeft: "2.5rem",
           paddingRight: "2.5rem",
-          borderBottom: "1px solid rgba(255,255,255,0.06)",
+          borderBottom: "1px solid #282828",
         }}
       >
         <div style={{ maxWidth: 1400, margin: "0 auto", display: "flex", justifyContent: "space-between", alignItems: "flex-end", flexWrap: "wrap", gap: "2rem" }}>
           <div>
-            <div style={{ fontSize: "0.5rem", fontWeight: 600, letterSpacing: "0.18em", textTransform: "uppercase", color: "#FF4D4D", marginBottom: "1rem" }}>
-              Active Threat Intelligence
+            <div style={{ fontSize: "0.5625rem", fontWeight: 700, letterSpacing: "0.15em", textTransform: "uppercase", color: "#FF4D4D", marginBottom: "0.75rem", fontFamily: "monospace" }}>
+              FRAUD CAMPAIGNS · §21 & §22
             </div>
-            <h1 style={{ fontSize: "clamp(2.5rem, 5vw, 4rem)", fontWeight: 800, letterSpacing: "-0.04em", lineHeight: 0.9, color: "#F4F4F0", textTransform: "uppercase", margin: 0 }}>
-              Fraud
-              <br />
-              Campaigns
+            <h1 style={{ fontSize: "clamp(2rem, 4vw, 3rem)", fontWeight: 800, letterSpacing: "-0.03em", lineHeight: 1.05, color: "#F5F4EF", textTransform: "uppercase", margin: 0, fontFamily: "monospace" }}>
+              Coordinated Threat Campaigns
             </h1>
-            <p style={{ maxWidth: 480, fontSize: "0.8125rem", color: "rgba(244,244,240,0.45)", lineHeight: 1.65, marginTop: "1.25rem" }}>
-              Coordinated attacks grouped by shared device, IP, beneficiary, and behavioral patterns.
-              Each campaign is detected via graph clustering and temporal correlation.
+            <p style={{ maxWidth: 540, fontSize: "0.8125rem", color: "#929292", lineHeight: 1.6, marginTop: "0.75rem" }}>
+              A campaign is generated when multiple events share meaningful entity relationships or temporal and behavioral patterns. Used as a deep investigation area.
             </p>
           </div>
-          <div style={{ display: "flex", gap: "1.5rem" }}>
+          <div style={{ display: "flex", gap: "2rem" }}>
             {[
-              { label: "Active Campaigns", value: "3",     color: "#FF4D4D" },
-              { label: "Total Exposure",   value: "INR 27.2L", color: "#FFA31A" },
-              { label: "Avg Confidence",   value: "84%",   color: "#39FF88" },
+              { label: "Active Campaigns", value: "3", color: "#FF4D4D" },
+              { label: "Total Exposure", value: "₹27.2L", color: "#FFA31A" },
+              { label: "Avg Confidence", value: "84%", color: "#39FF88" },
             ].map((s) => (
               <div key={s.label} style={{ textAlign: "right" }}>
-                <div style={{ fontSize: "2rem", fontWeight: 800, color: s.color, letterSpacing: "-0.04em" }}>{s.value}</div>
-                <div style={{ fontSize: "0.5rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(244,244,240,0.35)", marginTop: "0.25rem" }}>{s.label}</div>
+                <div style={{ fontSize: "1.75rem", fontWeight: 800, color: s.color, letterSpacing: "-0.03em", fontFamily: "monospace" }}>{s.value}</div>
+                <div style={{ fontSize: "0.5625rem", letterSpacing: "0.08em", textTransform: "uppercase", color: "#929292", marginTop: "0.2rem", fontFamily: "monospace" }}>{s.label}</div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section style={{ padding: "4rem 2.5rem", maxWidth: 1400, margin: "0 auto", display: "flex", flexDirection: "column", gap: "2rem" }}>
+      <section style={{ padding: "3rem 2.5rem", maxWidth: 1400, margin: "0 auto", display: "flex", flexDirection: "column", gap: "2rem" }}>
         {CAMPAIGNS.map((c) => (
           <div
             key={c.id}
             style={{
-              background: "#0A0A0A",
-              border: `1px solid ${c.color}22`,
-              borderLeft: `3px solid ${c.color}`,
+              background: "#101010",
+              border: "1px solid #282828",
+              borderLeft: `4px solid ${c.color}`,
+              borderRadius: "4px",
               overflow: "hidden",
             }}
           >
@@ -117,104 +133,152 @@ export default function CampaignsPage() {
             <div
               style={{
                 display: "grid",
-                gridTemplateColumns: "100px 1fr auto auto auto auto 120px",
+                gridTemplateColumns: "160px 1fr auto auto auto auto 120px",
                 gap: "1.5rem",
                 alignItems: "center",
-                padding: "1.5rem 2rem",
-                borderBottom: "1px solid rgba(255,255,255,0.06)",
+                padding: "1.25rem 1.75rem",
+                borderBottom: "1px solid #282828",
               }}
             >
-              <span style={{ fontSize: "1rem", fontWeight: 800, color: c.color, fontFamily: "monospace" }}>{c.id}</span>
+              <span style={{ fontSize: "0.9375rem", fontWeight: 800, color: c.color, fontFamily: "monospace" }}>{c.id}</span>
               <div>
-                <div style={{ fontSize: "0.875rem", fontWeight: 700, color: "#F4F4F0" }}>{c.type}</div>
-                <div style={{ fontSize: "0.5rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(244,244,240,0.3)", marginTop: "0.2rem" }}>{c.severity}</div>
+                <div style={{ fontSize: "0.875rem", fontWeight: 700, color: "#F5F4EF" }}>{c.type}</div>
+                <div style={{ fontSize: "0.5625rem", letterSpacing: "0.08em", textTransform: "uppercase", color: "#929292", marginTop: "0.2rem", fontFamily: "monospace" }}>{c.severity} SEVERITY</div>
               </div>
-              <StatPill label="Accounts"     value={c.accounts.toString()} color={c.color} />
-              <StatPill label="Devices"      value={c.devices.toString()} color={c.color} />
-              <StatPill label="Exposure"     value={c.exposure}            color={c.color} />
+              <StatPill label="Accounts" value={c.accounts.toString()} color="#F5F4EF" />
+              <StatPill label="Devices" value={c.devices.toString()} color="#F5F4EF" />
+              <StatPill label="Exposure" value={c.exposure} color={c.color} />
               <ConfidencePill value={c.confidence} color={c.color} />
               <div
                 style={{
-                  padding: "0.4rem 0.75rem",
-                  border: `1px solid ${c.color}44`,
+                  padding: "0.35rem 0.6rem",
+                  border: `1px solid ${c.color}`,
                   color: c.color,
-                  fontSize: "0.45rem",
+                  fontSize: "0.625rem",
                   fontWeight: 700,
-                  letterSpacing: "0.1em",
+                  letterSpacing: "0.08em",
                   textTransform: "uppercase",
                   textAlign: "center",
-                  background: `${c.color}0D`,
+                  background: `${c.color}15`,
+                  borderRadius: "2px",
+                  fontFamily: "monospace",
                 }}
               >
-                {c.status}
+                ● {c.status}
               </div>
             </div>
 
-            {/* Campaign body */}
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "0", padding: "0" }}>
-              <div style={{ padding: "1.5rem 2rem", borderRight: "1px solid rgba(255,255,255,0.06)" }}>
-                <div style={{ fontSize: "0.5rem", fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase", color: "rgba(244,244,240,0.3)", marginBottom: "0.75rem" }}>
-                  Description
+            {/* Campaign body: Split into 3 columns (Description & Entity Breakdown | Campaign Timeline §22 | Actions) */}
+            <div style={{ display: "grid", gridTemplateColumns: "1.1fr 1fr 260px", gap: "0", padding: "0" }}>
+              {/* Col 1: Description & Entities */}
+              <div style={{ padding: "1.5rem 1.75rem", borderRight: "1px solid #282828" }}>
+                <div style={{ fontSize: "0.5625rem", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", color: "#929292", marginBottom: "0.5rem", fontFamily: "monospace" }}>
+                  Pattern Analysis
                 </div>
-                <p style={{ fontSize: "0.6875rem", color: "rgba(244,244,240,0.6)", lineHeight: 1.65, margin: 0 }}>
+                <p style={{ fontSize: "0.75rem", color: "#F5F4EF", lineHeight: 1.6, margin: "0 0 1rem" }}>
                   {c.description}
                 </p>
-              </div>
-              <div style={{ padding: "1.5rem 2rem", borderRight: "1px solid rgba(255,255,255,0.06)" }}>
-                <div style={{ fontSize: "0.5rem", fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase", color: "rgba(244,244,240,0.3)", marginBottom: "0.75rem" }}>
-                  Risk Signals
+
+                <div style={{ fontSize: "0.5625rem", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", color: "#929292", marginBottom: "0.5rem", fontFamily: "monospace" }}>
+                  Entity Scope (§21)
                 </div>
-                <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
-                  {c.signals.map((s) => (
-                    <div key={s} style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-                      <div style={{ width: 4, height: 4, borderRadius: "50%", background: c.color, flexShrink: 0 }} />
-                      <span style={{ fontSize: "0.625rem", color: "rgba(244,244,240,0.65)" }}>{s}</span>
+                <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap", fontSize: "0.6875rem", fontFamily: "monospace" }}>
+                  <span style={{ background: "#151515", border: "1px solid #282828", padding: "0.2rem 0.5rem", borderRadius: "2px", color: "#F5F4EF" }}>
+                    {c.accounts} accounts
+                  </span>
+                  <span style={{ background: "#151515", border: "1px solid #282828", padding: "0.2rem 0.5rem", borderRadius: "2px", color: "#F5F4EF" }}>
+                    {c.devices} devices
+                  </span>
+                  <span style={{ background: "#151515", border: "1px solid #282828", padding: "0.2rem 0.5rem", borderRadius: "2px", color: "#F5F4EF" }}>
+                    {c.networkClusters} network clusters
+                  </span>
+                  <span style={{ background: "#151515", border: "1px solid #282828", padding: "0.2rem 0.5rem", borderRadius: "2px", color: "#F5F4EF" }}>
+                    {c.cards} cards
+                  </span>
+                  <span style={{ background: "#151515", border: "1px solid #282828", padding: "0.2rem 0.5rem", borderRadius: "2px", color: "#F5F4EF" }}>
+                    {c.beneficiaries} beneficiaries
+                  </span>
+                </div>
+              </div>
+
+              {/* Col 2: Campaign Timeline (§22) */}
+              <div style={{ padding: "1.5rem 1.75rem", borderRight: "1px solid #282828" }}>
+                <div style={{ fontSize: "0.5625rem", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", color: "#929292", marginBottom: "0.75rem", fontFamily: "monospace" }}>
+                  Campaign Timeline (§22)
+                </div>
+                <div style={{ display: "flex", flexDirection: "column", gap: "0.6rem" }}>
+                  {c.timeline.map((t, idx) => (
+                    <div key={idx} style={{ display: "flex", alignItems: "center", gap: "0.75rem", fontSize: "0.6875rem", fontFamily: "monospace" }}>
+                      <span style={{ color: "#929292", minWidth: "40px" }}>{t.time}</span>
+                      <div style={{ width: 6, height: 6, borderRadius: "50%", background: idx === c.timeline.length - 1 ? c.color : "#929292" }} />
+                      <span style={{ color: idx === c.timeline.length - 1 ? c.color : "#F5F4EF", fontWeight: idx === c.timeline.length - 1 ? 700 : 400 }}>
+                        {t.event}
+                      </span>
                     </div>
                   ))}
                 </div>
-                <div style={{ marginTop: "1rem" }}>
-                  <div style={{ fontSize: "0.5rem", fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase", color: "rgba(244,244,240,0.3)", marginBottom: "0.5rem" }}>
-                    Origin Countries
-                  </div>
-                  <div style={{ display: "flex", gap: "0.5rem" }}>
-                    {c.countries.map((cc) => (
-                      <span key={cc} style={{ padding: "0.15rem 0.5rem", border: "1px solid rgba(255,77,77,0.3)", color: "#FF4D4D", fontSize: "0.5rem", letterSpacing: "0.08em", fontFamily: "monospace" }}>
-                        {cc}
-                      </span>
-                    ))}
-                  </div>
-                </div>
               </div>
-              <div style={{ padding: "1.5rem 2rem" }}>
-                <div style={{ fontSize: "0.5rem", fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase", color: "rgba(244,244,240,0.3)", marginBottom: "0.75rem" }}>
-                  Actions
-                </div>
-                <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
-                  {[
-                    { label: "Investigate Case",      action: () => {} },
-                    { label: "Increase friction — all linked entities", action: () => {} },
-                    { label: "Create Investigation Case", action: () => {} },
-                  ].map((btn) => (
-                    <button
-                      key={btn.label}
-                      onClick={btn.action}
+
+              {/* Col 3: Actions */}
+              <div style={{ padding: "1.5rem 1.75rem", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+                <div>
+                  <div style={{ fontSize: "0.5625rem", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", color: "#929292", marginBottom: "0.75rem", fontFamily: "monospace" }}>
+                    Investigation Actions
+                  </div>
+                  <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+                    <Link
+                      href={`/command-center?tab=investigate&campaign=${encodeURIComponent(c.id)}`}
                       style={{
-                        padding: "0.625rem 1rem",
-                        background: "transparent",
-                        border: `1px solid ${c.color}33`,
-                        color: "rgba(244,244,240,0.6)",
-                        fontSize: "0.5625rem",
-                        letterSpacing: "0.06em",
-                        cursor: "pointer",
-                        textAlign: "left",
-                        transition: "border-color 150ms ease, color 150ms ease",
+                        padding: "0.5rem 0.75rem",
+                        background: "#151515",
+                        border: "1px solid #282828",
+                        color: "#F5F4EF",
+                        fontSize: "0.6875rem",
+                        fontFamily: "monospace",
+                        textAlign: "center",
+                        borderRadius: "3px",
+                        textDecoration: "none",
                       }}
-                      onMouseEnter={(e) => { e.currentTarget.style.borderColor = c.color; e.currentTarget.style.color = "#F4F4F0"; }}
-                      onMouseLeave={(e) => { e.currentTarget.style.borderColor = `${c.color}33`; e.currentTarget.style.color = "rgba(244,244,240,0.6)"; }}
                     >
-                      {btn.label}
-                    </button>
-                  ))}
+                      Investigate Case
+                    </Link>
+                    <Link
+                      href={`/account-360?tab=network`}
+                      style={{
+                        padding: "0.5rem 0.75rem",
+                        background: "#151515",
+                        border: "1px solid #282828",
+                        color: "#F5F4EF",
+                        fontSize: "0.6875rem",
+                        fontFamily: "monospace",
+                        textAlign: "center",
+                        borderRadius: "3px",
+                        textDecoration: "none",
+                      }}
+                    >
+                      View Entity Graph
+                    </Link>
+                    <Link
+                      href={`/cases`}
+                      style={{
+                        padding: "0.5rem 0.75rem",
+                        background: "rgba(255,77,77,0.08)",
+                        border: "1px solid rgba(255,77,77,0.3)",
+                        color: "#FF4D4D",
+                        fontSize: "0.6875rem",
+                        fontFamily: "monospace",
+                        textAlign: "center",
+                        borderRadius: "3px",
+                        textDecoration: "none",
+                      }}
+                    >
+                      Create Investigation Case
+                    </Link>
+                  </div>
+                </div>
+
+                <div style={{ fontSize: "0.5625rem", color: "#929292", fontFamily: "monospace", marginTop: "1rem" }}>
+                  Confidence: <strong style={{ color: c.color }}>{c.confidence}%</strong> · Status: {c.status}
                 </div>
               </div>
             </div>
@@ -222,7 +286,7 @@ export default function CampaignsPage() {
         ))}
       </section>
 
-      <Footer />
+      
     </main>
   );
 }
@@ -230,8 +294,8 @@ export default function CampaignsPage() {
 function StatPill({ label, value, color }: { label: string; value: string; color: string }) {
   return (
     <div style={{ textAlign: "center" }}>
-      <div style={{ fontSize: "1.125rem", fontWeight: 700, color, letterSpacing: "-0.02em" }}>{value}</div>
-      <div style={{ fontSize: "0.45rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(244,244,240,0.3)", marginTop: "0.2rem" }}>{label}</div>
+      <div style={{ fontSize: "1.125rem", fontWeight: 700, color, letterSpacing: "-0.02em", fontFamily: "monospace" }}>{value}</div>
+      <div style={{ fontSize: "0.5rem", letterSpacing: "0.08em", textTransform: "uppercase", color: "#929292", marginTop: "0.2rem", fontFamily: "monospace" }}>{label}</div>
     </div>
   );
 }
@@ -239,8 +303,8 @@ function StatPill({ label, value, color }: { label: string; value: string; color
 function ConfidencePill({ value, color }: { value: number; color: string }) {
   return (
     <div style={{ textAlign: "center" }}>
-      <div style={{ fontSize: "1.125rem", fontWeight: 700, color, letterSpacing: "-0.02em" }}>{value}%</div>
-      <div style={{ fontSize: "0.45rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(244,244,240,0.3)", marginTop: "0.2rem" }}>Confidence</div>
+      <div style={{ fontSize: "1.125rem", fontWeight: 700, color, letterSpacing: "-0.02em", fontFamily: "monospace" }}>{value}%</div>
+      <div style={{ fontSize: "0.5rem", letterSpacing: "0.08em", textTransform: "uppercase", color: "#929292", marginTop: "0.2rem", fontFamily: "monospace" }}>Confidence</div>
     </div>
   );
 }

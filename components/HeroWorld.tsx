@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import FloatingMeta from "./FloatingMeta";
 
 // ── Layer definitions ────────────────────────────────────────────────────────
@@ -277,10 +278,10 @@ export default function HeroWorld({ mode = "default" }: HeroWorldProps) {
         style={{ position: "absolute", inset: 0, ...layerStyle("labels") }}
       >
         {[
-          { x: "12%", y: "55%", label: "◌ DEVICE",   color: "#39FF88" },
-          { x: "72%", y: "70%", label: "◎ IDENTITY",  color: "#00F6FF" },
-          { x: "28%", y: "80%", label: "≋ VELOCITY",  color: "#FFA31A" },
-          { x: "88%", y: "48%", label: "⌖ GEO",       color: "#E600FF" },
+          { x: "12%", y: "55%", label: "DEVICE",   color: "#39FF88" },
+          { x: "72%", y: "70%", label: "IDENTITY",  color: "#00F6FF" },
+          { x: "28%", y: "80%", label: "VELOCITY",  color: "#FFA31A" },
+          { x: "88%", y: "48%", label: "GEO",       color: "#E600FF" },
         ].map((lbl) => (
           <div
             key={lbl.label}
@@ -366,23 +367,64 @@ export default function HeroWorld({ mode = "default" }: HeroWorldProps) {
             transition: "opacity 700ms ease 450ms",
           }}
         >
-          <FloatingMeta label="Transactions"    value="1.42M"  accent="#39FF88" />
-          <FloatingMeta label="Median Decision" value="42ms"   accent="#00F6FF" />
-          <FloatingMeta label="Availability"    value="98.7%"  accent="#FFA31A" />
+          <FloatingMeta label="Dataset Evaluated" value="1,200 Txns" accent="#39FF88" />
+          <FloatingMeta label="Decision Latency"  value="< 50ms"    accent="#00F6FF" />
+          <FloatingMeta label="Pipeline"          value="XGB + Rules" accent="#FFA31A" />
         </div>
 
         {/* CTA */}
-        {!isFinal && (
+        {!isFinal ? (
           <div
             style={{
               marginTop: "2.5rem",
+              display: "flex",
+              gap: "1rem",
+              justifyContent: "center",
+              flexWrap: "wrap",
               opacity: entered ? 1 : 0,
               transition: "opacity 700ms ease 550ms",
             }}
           >
-            <a href="#engine" className="arrow-btn">
-              Explore the engine <span className="arr">→</span>
+            <Link
+              href="/command-center"
+              className="arrow-btn"
+              style={{
+                background: "#39FF88",
+                color: "#050505",
+                fontWeight: 700,
+                border: "none",
+                textDecoration: "none",
+              }}
+            >
+              Launch Unified Risk OS <span className="arr">→</span>
+            </Link>
+            <a href="#engine" className="arrow-btn" style={{ textDecoration: "none" }}>
+              Explore Architecture <span className="arr">↓</span>
             </a>
+          </div>
+        ) : (
+          <div
+            style={{
+              marginTop: "2.5rem",
+              display: "flex",
+              justifyContent: "center",
+              opacity: entered ? 1 : 0,
+              transition: "opacity 700ms ease 550ms",
+            }}
+          >
+            <Link
+              href="/command-center"
+              className="arrow-btn"
+              style={{
+                background: "#39FF88",
+                color: "#050505",
+                fontWeight: 700,
+                border: "none",
+                textDecoration: "none",
+              }}
+            >
+              Open Unified Risk Workstation <span className="arr">→</span>
+            </Link>
           </div>
         )}
       </div>

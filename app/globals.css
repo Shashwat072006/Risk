@@ -1,21 +1,52 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&display=swap');
 
-/* ─── Design tokens ──────────────────────────────────────────────── */
+/* ─── PRD v4 Bank-Grade Design Tokens (§5) ───────────────────────────────── */
 :root {
-  --black:       #050505;
-  --paper:       #F4F4F0;
+  /* Backgrounds */
+  --bg:          #070707;
+  --surface:     #101010;
+  --surface-2:   #151515;
+  --surface-3:   #1a1a1a;
+
+  /* Text */
+  --text:        #F5F4EF;
+  --text-dim:    #C8C7C2;
+  --muted:       #929292;
+  --muted-2:     #535353;
+
+  /* Borders / Lines */
+  --line:        #282828;
+  --line-dim:    #1f1f1f;
+  --line-strong: #3a3a3a;
+
+  /* Semantic Colors — PRD §5 */
+  --accent:      #39FF88;   /* brand / approved / positive */
+  --approved:    #39FF88;
+  --review:      #FFA31A;   /* amber / warning / step-up */
+  --critical:    #FF4D4D;   /* red / danger / block */
+
+  /* Landing / cinematic aliases (confined to marketing pages) */
+  --black:       #070707;
+  --paper:       #F5F4EF;
   --acid-green:  #39FF88;
-  --magenta:     #E600FF;
-  --cyan:        #00F6FF;
-  --orange:      #FFA31A;
-  --white:       #F4F4F0;
-  --grey:        #888888;
-  --grey-dim:    #444444;
-  --line:        rgba(255,255,255,0.10);
-  --line-dim:    rgba(255,255,255,0.05);
+  --white:       #F5F4EF;
+  --grey:        #929292;
+  --grey-dim:    #282828;
+
+  /* Console Typography Scale — PRD §6 */
+  --type-page-title:   clamp(32px, 4vw, 48px);
+  --type-account-name: clamp(28px, 3.5vw, 42px);
+  --type-metric:       clamp(24px, 3vw, 44px);
+  --type-body:         14px;
+  --type-meta:         11px;
+  --type-label:        10px;
+
+  /* Sidebar nav width */
+  --sidebar-w: 220px;
+  --sidebar-w-collapsed: 52px;
 }
 
-/* ─── Reset ──────────────────────────────────────────────────────── */
+/* ─── Reset ──────────────────────────────────────────────────────────────── */
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -24,24 +55,24 @@
 
 html {
   font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
-  background: var(--black);
-  color: var(--white);
+  background: var(--bg);
+  color: var(--text);
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 body {
-  background: var(--black);
+  background: var(--bg);
   overflow-x: hidden;
 }
 
-/* ─── Lenis smooth scroll ────────────────────────────────────────── */
+/* ─── Lenis smooth scroll ────────────────────────────────────────────────── */
 html.lenis, html.lenis body { height: auto; }
 .lenis.lenis-smooth { scroll-behavior: auto !important; }
 .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
 
-/* ─── Film grain overlay ─────────────────────────────────────────── */
+/* ─── Film grain overlay ─────────────────────────────────────────────────── */
 .grain-overlay {
   position: fixed;
   inset: 0;
@@ -54,9 +85,55 @@ html.lenis, html.lenis body { height: auto; }
   mix-blend-mode: screen;
 }
 
-/* ─── Typography utilities ───────────────────────────────────────── */
+/* ─── Console Typography Scale (PRD §6) ──────────────────────────────────── */
+.console-page-title {
+  font-size: var(--type-page-title);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  line-height: 1.05;
+}
+
+.console-account-name {
+  font-size: var(--type-account-name);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  line-height: 1.1;
+}
+
+.console-metric {
+  font-size: var(--type-metric);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.console-body {
+  font-size: var(--type-body);
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+.console-meta {
+  font-size: var(--type-meta);
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.console-label {
+  font-size: var(--type-label);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ─── Legacy Typography Utilities ────────────────────────────────────────── */
 .meta {
-  font-size: 0.625rem;         /* 10px */
+  font-size: 0.625rem;
   font-weight: 500;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -64,20 +141,179 @@ html.lenis, html.lenis body { height: auto; }
 }
 
 .label-sm {
-  font-size: 0.6875rem;        /* 11px */
+  font-size: 0.6875rem;
   font-weight: 500;
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
 .body-copy {
-  font-size: 0.9375rem;        /* 15px */
+  font-size: 0.9375rem;
   line-height: 1.6;
   color: var(--grey);
   max-width: 520px;
 }
 
-/* ─── Arrow / pill buttons ────────────────────────────────────────── */
+/* ─── Console Layout Shell ───────────────────────────────────────────────── */
+.console-shell {
+  display: flex;
+  min-height: 100vh;
+  background: var(--bg);
+}
+
+.console-sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: var(--sidebar-w);
+  background: var(--surface);
+  border-right: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  z-index: 200;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.console-main {
+  margin-left: var(--sidebar-w);
+  flex: 1;
+  min-width: 0;
+}
+
+/* ─── Sidebar nav item ───────────────────────────────────────────────────── */
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.5rem 1rem;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+  border-left: 2px solid transparent;
+  transition: color 150ms ease, background 150ms ease, border-color 150ms ease;
+  white-space: nowrap;
+}
+.sidebar-item:hover {
+  color: var(--text);
+  background: var(--surface-2);
+}
+.sidebar-item.active {
+  color: var(--accent);
+  border-left-color: var(--accent);
+  background: rgba(57,255,136,0.06);
+  font-weight: 700;
+}
+.sidebar-group-label {
+  padding: 0.75rem 1rem 0.25rem;
+  font-size: 0.5625rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted-2);
+}
+
+/* ─── Risk Badge ─────────────────────────────────────────────────────────── */
+.risk-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.15rem 0.45rem;
+  font-size: 0.5625rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-radius: 2px;
+  white-space: nowrap;
+}
+.risk-badge.critical {
+  background: rgba(255,77,77,0.12);
+  border: 1px solid rgba(255,77,77,0.3);
+  color: #FF4D4D;
+}
+.risk-badge.high {
+  background: rgba(255,163,26,0.12);
+  border: 1px solid rgba(255,163,26,0.3);
+  color: #FFA31A;
+}
+.risk-badge.medium {
+  background: rgba(255,163,26,0.08);
+  border: 1px solid rgba(255,163,26,0.2);
+  color: #FFA31A;
+}
+.risk-badge.normal {
+  background: rgba(57,255,136,0.08);
+  border: 1px solid rgba(57,255,136,0.2);
+  color: #39FF88;
+}
+.risk-badge.neutral {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid #282828;
+  color: #929292;
+}
+
+/* ─── Surface Cards ──────────────────────────────────────────────────────── */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+}
+.card-2 {
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+}
+
+/* ─── Hairline divider ───────────────────────────────────────────────────── */
+.hairline {
+  border: none;
+  border-top: 1px solid var(--line);
+}
+
+/* ─── Attention Feed Row ─────────────────────────────────────────────────── */
+.attention-row {
+  display: grid;
+  grid-template-columns: 1fr 2fr 100px 100px;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.85rem 1.25rem;
+  border-bottom: 1px solid var(--line-dim);
+  cursor: pointer;
+  transition: background 120ms ease;
+}
+.attention-row:hover {
+  background: var(--surface-2);
+}
+.attention-row:last-child {
+  border-bottom: none;
+}
+
+/* ─── Passbook Row ───────────────────────────────────────────────────────── */
+.passbook-row {
+  display: grid;
+  grid-template-columns: 60px 1fr auto auto;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.85rem 1.25rem;
+  border-bottom: 1px solid var(--line-dim);
+  cursor: pointer;
+  transition: background 120ms ease;
+}
+.passbook-row:hover {
+  background: var(--surface-2);
+}
+.passbook-row:last-child {
+  border-bottom: none;
+}
+
+/* ─── Arrow / pill buttons ───────────────────────────────────────────────── */
 .arrow-btn {
   display: inline-flex;
   align-items: center;
@@ -105,22 +341,15 @@ html.lenis, html.lenis body { height: auto; }
 }
 .arrow-btn:hover .arr { transform: translateX(4px); }
 
-/* ─── Thin hairline divider ──────────────────────────────────────── */
-.hairline {
-  border: none;
-  border-top: 1px solid var(--line);
-}
-
-/* ─── Section layout helpers ──────────────────────────────────────── */
+/* ─── Section layout helpers ─────────────────────────────────────────────── */
 .section-pad {
   padding: 8rem 2.5rem;
 }
-
 .section-pad-lg {
   padding: 12rem 2.5rem;
 }
 
-/* ─── Navigation classes ──────────────────────────────────────────── */
+/* ─── Landing / Public Navigation ───────────────────────────────────────── */
 .nav-header {
   position: fixed;
   top: 0;
@@ -182,14 +411,47 @@ html.lenis, html.lenis body { height: auto; }
   -webkit-user-select: none;
 }
 
-/* ─── Responsive ─────────────────────────────────────────────────── */
-@media (max-width: 768px) {
+/* ─── Toast Notification ─────────────────────────────────────────────────── */
+.console-toast {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 9000;
+  background: var(--surface);
+  border: 1px solid var(--accent);
+  color: var(--text);
+  padding: 0.6rem 1rem;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  max-width: 360px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.6);
+  animation: toastIn 0.2s ease;
+}
+@keyframes toastIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── Scrollbar (webkit) ─────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--line-strong); border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: var(--muted-2); }
+
+/* ─── Responsive ─────────────────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .console-sidebar { width: var(--sidebar-w-collapsed); }
+  .console-main { margin-left: var(--sidebar-w-collapsed); }
+  .sidebar-item span { display: none; }
+  .sidebar-group-label { display: none; }
   .hidden-mobile { display: none !important; }
   .section-pad { padding: 5rem 1.25rem; }
   .section-pad-lg { padding: 7rem 1.25rem; }
+  .attention-row { grid-template-columns: 1fr 1fr; }
 }
 
-/* ─── Reduced motion ─────────────────────────────────────────────── */
+/* ─── Reduced motion ─────────────────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;

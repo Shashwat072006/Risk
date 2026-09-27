@@ -25,8 +25,9 @@ export default function Footer() {
       {/* Links */}
       <div style={{ display: "flex", gap: "2rem" }}>
         {[
-          { label: "Console", href: "/risk-console" },
-          { label: "Metrics", href: "/metrics" },
+          { label: "Unified Risk OS", href: "/command-center" },
+          { label: "Console", href: "/command-center?tab=console" },
+          { label: "Metrics", href: "/command-center?tab=metrics" },
           { label: "GitHub", href: "#" },
           { label: "Docs", href: "#" },
         ].map((link) => (

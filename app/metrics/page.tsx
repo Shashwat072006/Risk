@@ -1,7 +1,5 @@
 "use client";
 import { useEffect, useState } from "react";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
 import MetricCard from "@/components/MetricCard";
 import ConfusionMatrix from "@/components/ConfusionMatrix";
 
@@ -49,12 +47,12 @@ export default function MetricsPage() {
   return (
     <main style={{ background: "#050505", minHeight: "100vh" }}>
       <div className="grain-overlay" aria-hidden="true" />
-      <Header />
+      
 
       {/* Page hero */}
       <section
         style={{
-          paddingTop: "8rem",
+          paddingTop: "2rem",
           paddingBottom: "4rem",
           paddingLeft: "2.5rem",
           paddingRight: "2.5rem",
@@ -135,7 +133,7 @@ export default function MetricsPage() {
                 fontFamily: "monospace",
               }}
             >
-              ✗ {error}
+              [ERROR] {error}
             </div>
           )}
 
@@ -189,8 +187,8 @@ export default function MetricsPage() {
                         border: `1px solid ${g.met ? "rgba(57,255,136,0.3)" : "rgba(255,77,77,0.3)"}`,
                       }}
                     >
-                      <span style={{ fontSize: "0.75rem", color: g.met ? "#39FF88" : "#FF4D4D" }}>
-                        {g.met ? "✓" : "✗"}
+                      <span style={{ fontSize: "0.5625rem", fontWeight: 700, color: g.met ? "#39FF88" : "#FF4D4D" }}>
+                        {g.met ? "[PASS]" : "[FAIL]"}
                       </span>
                       <span style={{ fontSize: "0.5rem", letterSpacing: "0.08em", color: "rgba(244,244,240,0.6)" }}>
                         {g.target}
@@ -220,7 +218,7 @@ export default function MetricsPage() {
                     value={fmt(metrics.precision)}
                     target="≥ 75%"
                     met={metrics.goals.precision_75.met}
-                    accent="#00F6FF"
+                    accent="#39FF88"
                   />
                   <MetricCard
                     label="Recall"
@@ -232,7 +230,7 @@ export default function MetricsPage() {
                   <MetricCard
                     label="F1 Score"
                     value={fmt(metrics.f1)}
-                    accent="#E600FF"
+                    accent="#FFA31A"
                     sub="Harmonic mean of Precision & Recall"
                   />
                   <MetricCard
@@ -345,7 +343,7 @@ export default function MetricsPage() {
                   {[
                     {
                       title: "Rule Engine (40%)",
-                      accent: "#E600FF",
+                      accent: "#FFA31A",
                       items: ["13 deterministic rules", "Velocity, device, geo, timing", "Instant, fully explainable", "Configurable thresholds"],
                     },
                     {
@@ -355,7 +353,7 @@ export default function MetricsPage() {
                     },
                     {
                       title: "Hybrid Scorer",
-                      accent: "#00F6FF",
+                      accent: "#39FF88",
                       items: ["final = 0.4×rules + 0.6×ML", "Threshold at 0.40 / 0.65", "ALLOW / REVIEW / BLOCK", "Full feature attribution"],
                     },
                   ].map((col) => (
@@ -394,7 +392,7 @@ export default function MetricsPage() {
         </div>
       </section>
 
-      <Footer />
+      
     </main>
   );
 }

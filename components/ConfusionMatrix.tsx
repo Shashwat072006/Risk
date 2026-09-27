@@ -10,10 +10,10 @@ interface ConfusionMatrixProps {
 export default function ConfusionMatrix({ tp, tn, fp, fn }: ConfusionMatrixProps) {
   const total = tp + tn + fp + fn;
   const cells = [
-    { label: "True Negative",  value: tn, sub: "Correctly allowed",  color: "#39FF88", bg: "rgba(57,255,136,0.08)"  },
+    { label: "True Negative",  value: tn, sub: "Correctly allowed",  color: "#39FF88", bg: "rgba(57,255,136,0.08)" },
     { label: "False Positive", value: fp, sub: "Wrongly blocked",     color: "#FFA31A", bg: "rgba(255,163,26,0.08)" },
-    { label: "False Negative", value: fn, sub: "Missed fraud",        color: "#E600FF", bg: "rgba(230,0,255,0.08)"  },
-    { label: "True Positive",  value: tp, sub: "Correctly blocked",   color: "#00F6FF", bg: "rgba(0,246,255,0.08)"  },
+    { label: "False Negative", value: fn, sub: "Missed fraud",        color: "#FF4D4D", bg: "rgba(255,77,77,0.08)" },
+    { label: "True Positive",  value: tp, sub: "Correctly blocked",   color: "#39FF88", bg: "rgba(57,255,136,0.08)" },
   ];
 
   return (

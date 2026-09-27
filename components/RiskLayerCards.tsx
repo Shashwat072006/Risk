@@ -7,11 +7,11 @@ const LAYERS = [
     accent: "#00F6FF",
     num: "01",
     items: [
-      { icon: "◌", name: "Device",   sub: "Fingerprint + browser" },
-      { icon: "◎", name: "Identity", sub: "Email + phone velocity" },
-      { icon: "≋", name: "Velocity", sub: "5-min txn rate" },
-      { icon: "⌖", name: "Geo",      sub: "Distance anomaly" },
-      { icon: "▣", name: "Payment",  sub: "Card + amount pattern" },
+      { icon: "01", name: "Device",   sub: "Fingerprint + browser" },
+      { icon: "02", name: "Identity", sub: "Email + phone velocity" },
+      { icon: "03", name: "Velocity", sub: "5-min txn rate" },
+      { icon: "04", name: "Geo",      sub: "Distance anomaly" },
+      { icon: "05", name: "Payment",  sub: "Card + amount pattern" },
     ],
   },
   {
@@ -19,9 +19,9 @@ const LAYERS = [
     accent: "#E600FF",
     num: "02",
     items: [
-      { icon: "→", name: "Fraud",      sub: "XGBoost · rule hybrid" },
-      { icon: "→", name: "ATO",        sub: "Account takeover" },
-      { icon: "→", name: "Chargeback", sub: "Dispute predictor" },
+      { icon: "M1", name: "Fraud",      sub: "XGBoost · rule hybrid" },
+      { icon: "M2", name: "ATO",        sub: "Account takeover" },
+      { icon: "M3", name: "Chargeback", sub: "Dispute predictor" },
     ],
   },
   {
@@ -29,9 +29,9 @@ const LAYERS = [
     accent: "#39FF88",
     num: "03",
     items: [
-      { icon: "↗", name: "Approve",   sub: "Score < 0.35" },
-      { icon: "+", name: "Challenge", sub: "Score 0.35–0.70" },
-      { icon: "×", name: "Block",     sub: "Score > 0.70" },
+      { icon: "OK", name: "Approve",   sub: "Score < 0.35" },
+      { icon: "2FA", name: "Challenge", sub: "Score 0.35–0.70" },
+      { icon: "NO", name: "Block",     sub: "Score > 0.70" },
     ],
   },
 ];

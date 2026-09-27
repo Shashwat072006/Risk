@@ -14,9 +14,9 @@ const DECISION_COLORS: Record<string, { fg: string; bg: string; border: string }
   ALLOW:    { fg: "#39FF88", bg: "rgba(57,255,136,0.08)",  border: "rgba(57,255,136,0.3)" },
   REVIEW:   { fg: "#FFA31A", bg: "rgba(255,163,26,0.08)",  border: "rgba(255,163,26,0.3)" },
   BLOCK:    { fg: "#FF4D4D", bg: "rgba(255,77,77,0.08)",   border: "rgba(255,77,77,0.3)" },
-  "STEP-UP":{ fg: "#00F6FF", bg: "rgba(0,246,255,0.08)",   border: "rgba(0,246,255,0.3)" },
-  "3DS":    { fg: "#00F6FF", bg: "rgba(0,246,255,0.08)",   border: "rgba(0,246,255,0.3)" },
-  OTP:      { fg: "#E600FF", bg: "rgba(230,0,255,0.08)",   border: "rgba(230,0,255,0.3)" },
+  "STEP-UP":{ fg: "#FFA31A", bg: "rgba(255,163,26,0.08)",  border: "rgba(255,163,26,0.3)" },
+  "3DS":    { fg: "#FFA31A", bg: "rgba(255,163,26,0.08)",  border: "rgba(255,163,26,0.3)" },
+  OTP:      { fg: "#FFA31A", bg: "rgba(255,163,26,0.08)",  border: "rgba(255,163,26,0.3)" },
 };
 
 export default function ScorePanel({

@@ -1,15 +1,16 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
+import ConsoleShellWrapper from "@/components/ConsoleShellWrapper";
 
 export const metadata: Metadata = {
-  title: "TransactionGuard — Real-Time Transaction Risk & Chargeback Defense",
+  title: "ATDP — Financial Risk Operating System",
   description:
-    "The intelligence layer between your payment flow and financial loss. Real-time fraud detection, explainable decisions, and chargeback defense.",
-  keywords: ["fraud detection", "transaction risk", "chargeback defense", "payment security", "fintech"],
+    "Bank-oriented financial-risk operating system. Account 360, transaction intelligence, behavioral baseline, entity graph, adaptive decisioning, and audit trail.",
+  keywords: ["fraud detection", "financial risk", "bank security", "transaction intelligence", "adaptive decisioning"],
   openGraph: {
-    title: "TransactionGuard",
-    description: "Real-Time Transaction Risk & Chargeback Defense",
+    title: "ATDP — Financial Risk Operating System",
+    description: "Account 360 · Behavioral Intelligence · Adaptive Decisioning · Audit Trail",
     type: "website",
   },
 };
@@ -22,7 +23,12 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body suppressHydrationWarning>
-        <SmoothScroll>{children}</SmoothScroll>
+        <SmoothScroll>
+          <div className="grain-overlay" aria-hidden="true" />
+          <ConsoleShellWrapper>
+            {children}
+          </ConsoleShellWrapper>
+        </SmoothScroll>
       </body>
     </html>
   );

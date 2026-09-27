@@ -1,7 +1,5 @@
 "use client";
 import { useState, useCallback } from "react";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
 import TransactionForm, { TxnFormData, DEFAULT_FORM } from "@/components/TransactionForm";
 import ScorePanel from "@/components/ScorePanel";
 import RulesList from "@/components/RulesList";
@@ -89,12 +87,12 @@ export default function RiskConsolePage() {
   return (
     <main style={{ background: "#050505", minHeight: "100vh" }}>
       <div className="grain-overlay" aria-hidden="true" />
-      <Header />
+      
 
       {/* Page hero */}
       <section
         style={{
-          paddingTop: "8rem",
+          paddingTop: "2rem",
           paddingBottom: "4rem",
           paddingLeft: "2.5rem",
           paddingRight: "2.5rem",
@@ -171,7 +169,7 @@ export default function RiskConsolePage() {
               fontFamily: "monospace",
             }}
           >
-            ✗ {error}
+            [ERROR] {error}
           </div>
         )}
 
@@ -349,7 +347,7 @@ export default function RiskConsolePage() {
         </div>
       </section>
 
-      <Footer />
+      
     </main>
   );
 }
